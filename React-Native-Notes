@@ -2,4 +2,154 @@ Props
 -----
 
 - component creation parameters
+- ex. source prop used to control what the component Image shows...
 
+
+View component
+--------------
+
+- <View ...>
+- Useful as a container for other components, helps control style and layouts
+
+
+State
+------
+
+- 2 types of data controlling a components
+1.) Prop
+2.) State
+
+- Props, set by parent, fixed throughout lifetime of the component
+- State, need to be USED FOR DATA THAT IS GOING TO CHANGE
+
+- "whether the text is currently on or off" should be kept in state (changes over time)
+
+>>> Can use STATE CONTAINER  like redux to control data flow...
+
+
+style
+-----
+
+- All core components accept  a prop named style
+- cleaner to use "Stylesheet.create" as component grows in complexity
+
+
+
+
+Height & Width (controlling componennt size)
+----------------------------------------------
+
+- fixed dimensions > simplest
+- flex dimensions > component expands/shrinks dynamically based on available space
+
+- flex: 1, which tells a component to fill all available space, shared evenly amongst other components with the same parent. 
+  The larger the flex given, the higher the ratio of space a component will take compared to its siblings.
+  
+
+
+
+
+Layout with Flexbox
+---------------------
+
+- Using flexbox algorithm, a component can specify the layout of its children
+- You will normally use a combination of flexDirection, alignItems, and justifyContent
+- Adding flexDirection to a component's style determines the primary axis of its layout. 
+  Should the children be organized horizontally (row) or vertically (column)? The default is column.
+
+- alignItems to a component's style determines the alignment of children along the secondary axis
+
+
+
+Handling Text Input
+--------------------
+
+-  TextInput, basic compoennt allowing user to enter text
+
+
+Handling Touches
+----------------
+- Users interact with mobile apps mainly through Touch
+- combo of gestures - tapping, scrolling, zooming
+- Comprehensive gesture responder system
+
+- Basic Button
+
+- IF - the basic button doesn't look right for your app, can build your own button Using
+  any of the "touchable" components provided by react native
+
+
+Using Scrollview
+----------------
+
+- Scrollview is generic scrolling container that can host multiple components & views
+- Scrollable items need not be homogeneous
+- ScrollViews can be configured to allow paging through views using swiping gestures by using the pagingEnabled props
+
+
+- The ScrollView works best to present a small amount of things of a limited size. All the elements and views of a ScrollView are rendered, 
+  even if they are not currently shown on the screen. If you have a long list of more items than can fit on the screen, you should use a 
+  FlatList instead. So let's learn about list views next. 
+
+  Using ListView
+  ---------------
+
+  - components for presenting lists of data
+  - Generally, want to use either FLATLIST or SECTIONLIST
+  - FlatList  
+    - component displays a scrolling list of changing, but similary structured data
+    - works well for long lists of data, where the number of items might change over time
+    - Only renders elements currently showing on screen, not all at once
+
+  - SectionList
+    - Render a set of data broken into logical sections, maybe with section headers, similar to UITableViews on IOS
+
+
+Networking
+----------
+
+> Important to learn to fetch data from the server
+
+>  mobile apps need load resources from remote URL
+
+- ex. POST Request to a REST API
+
+- REACT NATIVE PROVIDES THE - Fetch API
+  - familiar if you have used XMLHttpRequest
+  
+  - NETWORKING is an inherently asynchronous operation
+  - Fetch methods returns a promise
+    Makes it straightforward to write code that works in an asynchronous matter
+
+    >>>>> The Promise object represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
+
+
+CHAINING PROMISES
+********************************************************************************
+function getMoviesFromApiAsync() {
+  return fetch('https://facebook.github.io/react-native/movies.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.movies;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+
+By default, iOS will block any request that's not encrypted using SSL. If you need to fetch from a cleartext URL 
+(one that begins with http) you will first need to add an App Transport Security exception. If you know ahead of 
+time what domains you will need access to, it is more secure to add exceptions just for those domains; if the domains 
+are not known until runtime you can disable ATS completely. Note however that from January 2017, Apple's App Store review
+ will require reasonable justification for disabling ATS. See Apple's documentation for more information.
+
+********************************************************************************
+
+- Security model for XMLHttpRequests different than on the web as there is no concept of CORS in native apps
+
+>>> React Native also supports web sockets
+>>> protocol providing full-duplex communication channels over a single TCP connectino
+
+
+>>>>>>> Known Issues with fetch and cookie based authentication
