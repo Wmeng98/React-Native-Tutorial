@@ -1,5 +1,8 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
+import { FlatList, Alert, ActivityIndicator, Button, Text, View  } from 'react-native';
+
+// local imports
+import { ButtonBase } from './Button';
 
 export default class FetchExample extends React.Component {
 
@@ -8,24 +11,15 @@ export default class FetchExample extends React.Component {
     this.state ={ isLoading: true}
   }
 
-  componentDidMount(){
-    return fetch('https://facebook.github.io/react-native/movies.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson.movies,
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
+  // The fetch() call returns a promise, which resolves with the Response object associated with 
+  // the resource fetch operation. You'll notice that since we are requesting an image, we need to run Body.blob 
+  // (Response implements body) to give the response its correct MIME type.
+  componentDidMount()  {
+    this.setState({
+      isLoading: false
+    });
+    // this.getAllWalmartItems();
   }
-
 
 
   render(){
@@ -40,11 +34,17 @@ export default class FetchExample extends React.Component {
 
     return(
       <View style={{flex: 1, paddingTop:20}}>
-        <FlatList
+        <Text>Hello World</Text>
+        <ButtonBase />
+        
+        
+        {/* <FlatList
           data={this.state.dataSource}
           renderItem={({item}) => <Text>{item.title}, {item.releaseYear}</Text>}
           keyExtractor={({id}, index) => id}
-        />
+        /> */}
+
+
       </View>
     );
   }
